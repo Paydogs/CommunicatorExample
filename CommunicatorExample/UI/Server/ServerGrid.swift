@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Communicator
 
 struct ServerGrid: View {
     private var servers: Set<Server>

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Communicator
 
 struct ClientGrid: View {
     private var clients: [Client]

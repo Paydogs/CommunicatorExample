@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Communicator
 
 class EnvironmentModel: ObservableObject {
     @Published var servers: Set<Server> = []

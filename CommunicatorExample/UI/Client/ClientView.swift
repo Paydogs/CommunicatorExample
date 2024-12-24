@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Communicator
 
 struct ClientView: View {
     @StateObject private var viewModel: ClientViewModel
@@ -30,21 +31,27 @@ struct ClientView: View {
             }
             .padding()
             
-            ScrollView {
-                LazyVStack(alignment: .leading, spacing: 8) {
-                    ForEach(viewModel.log.indices, id: \.self) { index in
-                        Text(viewModel.log[index])
-                            .font(.footnote)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .id(index)
+            ScrollViewReader { scrollViewProxy in
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 8) {
+                        ForEach(viewModel.log.indices, id: \.self) { index in
+                            Text(viewModel.log[index])
+                                .font(.footnote)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .id(index)
+                        }
                     }
+                    .onChange(of: viewModel.log) { _ in
+                        if let lastIndex = viewModel.log.indices.last {
+                            scrollViewProxy.scrollTo(lastIndex, anchor: .bottom)
+                        }
+                    }
+                    .padding()
                 }
-                .padding()
+                .frame(height: 100) // Fixed height for the scrollable area
+                .border(Color.gray, width: 1) // Optional border for visibility
+                .padding(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
-            .frame(height: 100) // Fixed height for the scrollable area
-            .border(Color.gray, width: 1) // Optional border for visibility
-            .padding(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
-
             Spacer()
             
             TextField("Enter Message", text: $viewModel.messageToSend)
@@ -77,7 +84,7 @@ class ClientViewModel: ObservableObject {
     
     init(client: Client) {
         self.client = client
-        client.logMessage.sink { [weak self] message in
+        client.logMessages.sink { [weak self] message in
             self?.log.append(">> \(message)")
         }
         .store(in: &cancellable)

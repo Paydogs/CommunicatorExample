@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		687D92E62D1B855800C4A807 /* Communicator in Frameworks */ = {isa = PBXBuildFile; productRef = 687D92E52D1B855800C4A807 /* Communicator */; };
+		688DE9BD2D297276003594C6 /* Communicator in Frameworks */ = {isa = PBXBuildFile; productRef = 688DE9BC2D297276003594C6 /* Communicator */; };
+		68B8AFA02D296E5C008DAC95 /* Communicator in Frameworks */ = {isa = PBXBuildFile; productRef = 68B8AF9F2D296E5C008DAC95 /* Communicator */; };
+		68B8AFBF2D29705C008DAC95 /* Communicator in Frameworks */ = {isa = PBXBuildFile; productRef = 68B8AFBE2D29705C008DAC95 /* Communicator */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		68ECE37E2D1862EB00172F06 /* CommunicatorExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommunicatorExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +30,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				687D92E62D1B855800C4A807 /* Communicator in Frameworks */,
+				688DE9BD2D297276003594C6 /* Communicator in Frameworks */,
+				68B8AFA02D296E5C008DAC95 /* Communicator in Frameworks */,
+				68B8AFBF2D29705C008DAC95 /* Communicator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +76,10 @@
 			);
 			name = CommunicatorExample;
 			packageProductDependencies = (
+				687D92E52D1B855800C4A807 /* Communicator */,
+				68B8AF9F2D296E5C008DAC95 /* Communicator */,
+				68B8AFBE2D29705C008DAC95 /* Communicator */,
+				688DE9BC2D297276003594C6 /* Communicator */,
 			);
 			productName = CommunicatorExample;
 			productReference = 68ECE37E2D1862EB00172F06 /* CommunicatorExample.app */;
@@ -95,6 +110,7 @@
 			mainGroup = 68ECE3752D1862EB00172F06;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				688DE9BB2D297276003594C6 /* XCLocalSwiftPackageReference "../Communicator" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 68ECE37F2D1862EB00172F06 /* Products */;
@@ -323,6 +339,32 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		688DE9BB2D297276003594C6 /* XCLocalSwiftPackageReference "../Communicator" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Communicator;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		687D92E52D1B855800C4A807 /* Communicator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Communicator;
+		};
+		688DE9BC2D297276003594C6 /* Communicator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Communicator;
+		};
+		68B8AF9F2D296E5C008DAC95 /* Communicator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Communicator;
+		};
+		68B8AFBE2D29705C008DAC95 /* Communicator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Communicator;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 68ECE3762D1862EB00172F06 /* Project object */;
 }

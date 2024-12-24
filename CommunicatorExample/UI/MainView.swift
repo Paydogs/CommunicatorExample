@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Communicator
 
 struct MainView: View {
     @StateObject private var viewModel: MainViewModel
@@ -48,6 +49,17 @@ struct MainView: View {
                         .font(.headline)
                     HStack {
                         TextField("Name", text: $viewModel.clientTextField)
+                        TextField("Max Data size", text: $viewModel.clientDataSizeField)
+                            .onChange(of: viewModel.clientDataSizeField) { newValue in
+                                let filtered = newValue.filter { $0.isNumber }
+                                if let _ = Int(filtered) {
+                                    viewModel.clientDataSizeField = filtered
+                                } else if filtered.isEmpty {
+                                    viewModel.clientDataSizeField = ""
+                                } else {
+                                    viewModel.clientDataSizeField = String(1024)
+                                }
+                            }
                     }
                     Button("Add") {
                         viewModel.addclient()
@@ -74,6 +86,7 @@ class MainViewModel: ObservableObject {
     @Published var serverTextField: String = ""
     @Published var serverPortField: String = ""
     @Published var clientTextField: String = ""
+    @Published var clientDataSizeField: String = ""
     private var environmentModel: EnvironmentModel
     
     init(environmentModel: EnvironmentModel) {
@@ -89,7 +102,7 @@ class MainViewModel: ObservableObject {
     }
     
     func addclient() {
-        let client = Client(serviceName: clientTextField)
+        let client = Client(serviceName: clientTextField, maxDataLength: Int(clientDataSizeField))
         environmentModel.clients.append(client)
         print("adding client: \(client)")
         print("Client count: \(environmentModel.clients.count)")
