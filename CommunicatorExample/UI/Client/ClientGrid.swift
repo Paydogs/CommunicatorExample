@@ -40,5 +40,3 @@ struct ClientGrid: View {
     let client = Client(serviceName: "Test")
     ClientGrid(clients: [client])
 }
-
-extension Client: Identifiable {}

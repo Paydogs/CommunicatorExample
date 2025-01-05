@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6833D4882D2A038A00B5F76D /* Communicator in Frameworks */ = {isa = PBXBuildFile; productRef = 6833D4872D2A038A00B5F76D /* Communicator */; };
+		680ED1152D2B17F000278555 /* Communicator in Frameworks */ = {isa = PBXBuildFile; productRef = 680ED1142D2B17F000278555 /* Communicator */; };
+		6833D4A92D2AC7E500B5F76D /* Communicator in Frameworks */ = {isa = PBXBuildFile; productRef = 6833D4A82D2AC7E500B5F76D /* Communicator */; };
 		687D92E62D1B855800C4A807 /* Communicator in Frameworks */ = {isa = PBXBuildFile; productRef = 687D92E52D1B855800C4A807 /* Communicator */; };
 		688DE9BD2D297276003594C6 /* Communicator in Frameworks */ = {isa = PBXBuildFile; productRef = 688DE9BC2D297276003594C6 /* Communicator */; };
 		688DEA2C2D299247003594C6 /* Communicator in Frameworks */ = {isa = PBXBuildFile; productRef = 688DEA2B2D299247003594C6 /* Communicator */; };
@@ -37,7 +38,8 @@
 				688DE9BD2D297276003594C6 /* Communicator in Frameworks */,
 				68B8AFA02D296E5C008DAC95 /* Communicator in Frameworks */,
 				68B8AFBF2D29705C008DAC95 /* Communicator in Frameworks */,
-				6833D4882D2A038A00B5F76D /* Communicator in Frameworks */,
+				680ED1152D2B17F000278555 /* Communicator in Frameworks */,
+				6833D4A92D2AC7E500B5F76D /* Communicator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +87,8 @@
 				68B8AFBE2D29705C008DAC95 /* Communicator */,
 				688DE9BC2D297276003594C6 /* Communicator */,
 				688DEA2B2D299247003594C6 /* Communicator */,
-				6833D4872D2A038A00B5F76D /* Communicator */,
+				6833D4A82D2AC7E500B5F76D /* Communicator */,
+				680ED1142D2B17F000278555 /* Communicator */,
 			);
 			productName = CommunicatorExample;
 			productReference = 68ECE37E2D1862EB00172F06 /* CommunicatorExample.app */;
@@ -116,7 +119,7 @@
 			mainGroup = 68ECE3752D1862EB00172F06;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				6833D4862D2A038900B5F76D /* XCRemoteSwiftPackageReference "Communicator" */,
+				680ED1132D2B17F000278555 /* XCRemoteSwiftPackageReference "Communicator" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 68ECE37F2D1862EB00172F06 /* Products */;
@@ -347,20 +350,24 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6833D4862D2A038900B5F76D /* XCRemoteSwiftPackageReference "Communicator" */ = {
+		680ED1132D2B17F000278555 /* XCRemoteSwiftPackageReference "Communicator" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Paydogs/Communicator.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
+				minimumVersion = 2.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6833D4872D2A038A00B5F76D /* Communicator */ = {
+		680ED1142D2B17F000278555 /* Communicator */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6833D4862D2A038900B5F76D /* XCRemoteSwiftPackageReference "Communicator" */;
+			package = 680ED1132D2B17F000278555 /* XCRemoteSwiftPackageReference "Communicator" */;
+			productName = Communicator;
+		};
+		6833D4A82D2AC7E500B5F76D /* Communicator */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = Communicator;
 		};
 		687D92E52D1B855800C4A807 /* Communicator */ = {

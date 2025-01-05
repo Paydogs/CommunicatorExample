@@ -18,8 +18,10 @@ struct ServerView: View {
 
     var body: some View {
         VStack {
-            Text("\(viewModel.serviceName) Server")
-                .font(.largeTitle)
+            HStack {
+                Text("\(viewModel.serviceName) Server")
+                    .font(.largeTitle)
+            }
             Text("\(viewModel.port)")
                 .font(.title2)
             
@@ -28,16 +30,23 @@ struct ServerView: View {
                 .font(.system(size: 24))
                 .frame(width: 48, height: 48)
             
-            Button("Start server") {
-                viewModel.startServer()
+            if !viewModel.started {
+                Button("Start server") {
+                    viewModel.startServer()
+                }
+                .padding()
+            } else {
+                Button("Stop") {
+                    viewModel.stopServer()
+                }
+                .padding()
             }
-            .padding()
-            
             ScrollViewReader { scrollViewProxy in
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 8) {
                         ForEach(viewModel.log.indices, id: \.self) { index in
                             Text(viewModel.log[index])
+                                .textSelection(.enabled)
                                 .font(.footnote)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .id(index)
@@ -54,8 +63,13 @@ struct ServerView: View {
                 .border(Color.gray, width: 1) // Optional border for visibility
                 .padding(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
-
-            Spacer()
+            Button {
+                viewModel.clearLog()
+            } label: {
+                Text("ClearLog")
+                    .font(.footnote)
+            }
+            .padding(.bottom)
             
             TextField("Enter Message", text: $viewModel.messageToSend)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -71,7 +85,7 @@ struct ServerView: View {
             }
             .padding(.init(top: 0, leading: 16, bottom: 8, trailing: 16))
         }
-        .frame(minWidth: 240, maxWidth: 240, minHeight: 550, maxHeight: 550)
+        .frame(minWidth: 240, maxWidth: 240, minHeight: 580, maxHeight: 580)
     }
     
     private func browseFile() {
@@ -105,16 +119,17 @@ struct ServerView_Previews: PreviewProvider {
 class ServerViewModel: ObservableObject {
     @Published var messageToSend: String = ""
     @Published var log: [String] = []
+    @Published var started: Bool = false
 
     var serviceName: String { server.serviceName }
-    var port: UInt16 { server.port }
+    var port: String { ":\(server.port)" }
     private var server: Server
     private var cancellable: Set<AnyCancellable> = []
 
     init(server: Server) {
         self.server = server
         server.logMessages.sink { [weak self] message in
-            self?.log.append(">> \(message)")
+            self?.log.append("\(server.currentTimeWithMillis):\n\(message)")
         }
         .store(in: &cancellable)
     }
@@ -122,6 +137,13 @@ class ServerViewModel: ObservableObject {
     func startServer() {
         log.append("Starting server")
         server.startServer()
+        started = true
+    }
+    
+    func stopServer() {
+        log.append("Stop server")
+        server.stopServer()
+        started = false
     }
 
     func sendMessage() {
@@ -131,5 +153,9 @@ class ServerViewModel: ObservableObject {
     
     func sendData(data: Data) {
         server.sendData(data)
+    }
+    
+    func clearLog() {
+        log.removeAll()
     }
 }

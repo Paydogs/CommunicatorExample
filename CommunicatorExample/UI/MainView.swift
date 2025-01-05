@@ -49,7 +49,7 @@ struct MainView: View {
                         .font(.headline)
                     HStack {
                         TextField("Name", text: $viewModel.clientTextField)
-                        TextField("Max Data size", text: $viewModel.clientDataSizeField)
+                        TextField("Data buffer size (kB)", text: $viewModel.clientDataSizeField)
                             .onChange(of: viewModel.clientDataSizeField) { newValue in
                                 let filtered = newValue.filter { $0.isNumber }
                                 if let _ = Int(filtered) {
@@ -102,7 +102,7 @@ class MainViewModel: ObservableObject {
     }
     
     func addclient() {
-        let client = Client(serviceName: clientTextField, maxDataLength: Int(clientDataSizeField))
+        let client = Client(serviceName: clientTextField, blockSize: Int(clientDataSizeField).map { $0 * 1024 })
         environmentModel.clients.append(client)
         print("adding client: \(client)")
         print("Client count: \(environmentModel.clients.count)")

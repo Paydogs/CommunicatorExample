@@ -26,16 +26,24 @@ struct ClientView: View {
                 .font(.system(size: 24))
                 .frame(width: 48, height: 48)
             
-            Button("Discover and Connect") {
-                viewModel.discoverAndConnect()
+            if !viewModel.started {
+                Button("Discover and Connect") {
+                    viewModel.discoverAndConnect()
+                }
+                .padding()
+            } else {
+                Button("Stop") {
+                    viewModel.stopClient()
+                }
+                .padding()
             }
-            .padding()
             
             ScrollViewReader { scrollViewProxy in
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 8) {
                         ForEach(viewModel.log.indices, id: \.self) { index in
                             Text(viewModel.log[index])
+                                .textSelection(.enabled)
                                 .font(.footnote)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .id(index)
@@ -52,7 +60,13 @@ struct ClientView: View {
                 .border(Color.gray, width: 1) // Optional border for visibility
                 .padding(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
-            Spacer()
+            Button {
+                viewModel.clearLog()
+            } label: {
+                Text("ClearLog")
+                    .font(.footnote)
+            }
+            .padding(.bottom)
             
             TextField("Enter Message", text: $viewModel.messageToSend)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -61,10 +75,35 @@ struct ClientView: View {
             Button("Send to server") {
                 viewModel.sendMessage()
             }
+            .padding(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
+            Button("Send a file to server") {
+                browseFile()
+            }
             .padding(.init(top: 0, leading: 16, bottom: 8, trailing: 16))
+
         }
-        .frame(minWidth: 240, maxWidth: 240, minHeight: 470, maxHeight: 470)
+        .frame(minWidth: 240, maxWidth: 240, minHeight: 530, maxHeight: 530)
     }
+    
+    private func browseFile() {
+            let panel = NSOpenPanel()
+            panel.canChooseFiles = true
+            panel.canChooseDirectories = false
+            panel.allowsMultipleSelection = false
+            panel.allowedContentTypes = [.data] // Adjust the content types as needed
+
+            if panel.runModal() == .OK {
+                guard let url = panel.url else { return }
+                do {
+                    // Read file content as a string
+                    let fileContent = try Data(contentsOf: url)
+                    viewModel.sendData(data: fileContent)
+                    viewModel.log.append("File \(fileContent.count) bytes sent successfully.")
+                } catch {
+                    viewModel.log.append("Failed to read file: \(error.localizedDescription)")
+                }
+            }
+        }
 }
 
 struct ClientView_Previews: PreviewProvider {
@@ -77,6 +116,7 @@ struct ClientView_Previews: PreviewProvider {
 class ClientViewModel: ObservableObject {
     @Published var messageToSend: String = ""
     @Published var log: [String] = []
+    @Published var started: Bool = false
 
     var serviceName: String { client.serviceName ?? "UNDEFINED" }
     private var client: Client
@@ -85,7 +125,7 @@ class ClientViewModel: ObservableObject {
     init(client: Client) {
         self.client = client
         client.logMessages.sink { [weak self] message in
-            self?.log.append(">> \(message)")
+            self?.log.append("\(client.currentTimeWithMillis):\n\(message)")
         }
         .store(in: &cancellable)
     }
@@ -93,9 +133,23 @@ class ClientViewModel: ObservableObject {
     func discoverAndConnect() {
         log.append("Discovering...")
         client.discoverAndConnect(serviceName: serviceName)
+        started = true
+    }
+    
+    func stopClient() {
+        client.stopClient()
+        started = false
     }
 
     func sendMessage() {
         client.sendMessage(messageToSend)
+    }
+    
+    func sendData(data: Data) {
+        client.sendData(data)
+    }
+    
+    func clearLog() {
+        log.removeAll()
     }
 }
