@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Paydogs/Communicator.git",
       "state" : {
-        "revision" : "ab6cefc151d9c6e0aa2d59056250ffc61a964e50",
-        "version" : "1.2.0"
+        "revision" : "f6ed7f0bde561949f77666c417458b893db01687",
+        "version" : "2.0.0"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Paydogs/CommunicatorCore.git",
       "state" : {
-        "revision" : "c5b2e3d7cc3a473fc941a3f040faf06ed5906414",
-        "version" : "1.2.0"
+        "revision" : "6c355a135278968c49cfbcdb6c3843bc686ee501",
+        "version" : "2.0.0"
       }
     }
   ],

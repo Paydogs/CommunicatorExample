@@ -41,5 +41,3 @@ struct ServerGrid: View {
     let server = Server(serviceName: "Test", port: 1234)
     ServerGrid(servers: [server])
 }
-
-extension Server: Identifiable {}
