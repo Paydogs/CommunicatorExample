@@ -48,7 +48,7 @@ struct ClientView: View {
                     }
                     .padding()
                 }
-                .frame(height: 100) // Fixed height for the scrollable area
+                .frame(height: 200) // Fixed height for the scrollable area
                 .border(Color.gray, width: 1) // Optional border for visibility
                 .padding(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
@@ -63,7 +63,7 @@ struct ClientView: View {
             }
             .padding(.init(top: 0, leading: 16, bottom: 8, trailing: 16))
         }
-        .frame(minWidth: 240, maxWidth: 240, minHeight: 360, maxHeight: 360)
+        .frame(minWidth: 240, maxWidth: 240, minHeight: 470, maxHeight: 470)
     }
 }
 

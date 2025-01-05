@@ -1,13 +1,22 @@
 {
-  "originHash" : "3dc437b7df3315cadd3813c21a951846981f1533700a1dd1ceac1eb9bf1ba86d",
+  "originHash" : "d33d496cc6037d6ac346060e4f90e76b68d9ab494e2f640caac46d5250de2460",
   "pins" : [
+    {
+      "identity" : "communicator",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Paydogs/Communicator.git",
+      "state" : {
+        "revision" : "ab6cefc151d9c6e0aa2d59056250ffc61a964e50",
+        "version" : "1.2.0"
+      }
+    },
     {
       "identity" : "communicatorcore",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Paydogs/CommunicatorCore.git",
       "state" : {
-        "revision" : "9284e8ad659171daafc7f9565e66b829ab19f461",
-        "version" : "1.0.8"
+        "revision" : "c5b2e3d7cc3a473fc941a3f040faf06ed5906414",
+        "version" : "1.2.0"
       }
     }
   ],

@@ -50,7 +50,7 @@ struct ServerView: View {
                     }
                     .padding()
                 }
-                .frame(height: 100) // Fixed height for the scrollable area
+                .frame(height: 250) // Fixed height for the scrollable area
                 .border(Color.gray, width: 1) // Optional border for visibility
                 .padding(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
@@ -71,7 +71,7 @@ struct ServerView: View {
             }
             .padding(.init(top: 0, leading: 16, bottom: 8, trailing: 16))
         }
-        .frame(minWidth: 240, maxWidth: 240, minHeight: 400, maxHeight: 400)
+        .frame(minWidth: 240, maxWidth: 240, minHeight: 550, maxHeight: 550)
     }
     
     private func browseFile() {
@@ -86,8 +86,6 @@ struct ServerView: View {
                 do {
                     // Read file content as a string
                     let fileContent = try Data(contentsOf: url)
-//                    let fileContent = try String(contentsOf: url)
-                    // Send the file content using the viewModel
                     viewModel.sendData(data: fileContent)
                     viewModel.log.append("File \(fileContent.count) bytes sent successfully.")
                 } catch {
@@ -127,7 +125,8 @@ class ServerViewModel: ObservableObject {
     }
 
     func sendMessage() {
-        server.sendMessage(messageToSend)
+        let data = messageToSend.data(using: .utf8)!
+        sendData(data: data)
     }
     
     func sendData(data: Data) {
